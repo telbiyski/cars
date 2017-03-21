@@ -1,0 +1,48 @@
+<div class="row mb-5">
+  <div class="col-6">
+    <h3 *ngIf="!car.id">Add New Car</h3>
+    <h3 *ngIf="car.id">Update Car: {{car.registration_number}}</h3>
+  </div>
+  <div class="col-6">
+    <a href="#" class="btn btn-secondary float-right" routerLink="/cars">Back</a>
+  </div>
+</div>
+
+<form #carForm="ngForm" (ngSubmit)="saveForm(carForm.value)">
+  <div class="form-group">
+    <label for="brand">Brand:</label>
+    <input type="text" class="form-control" placeholder="Ford" name="brand" id="brand" [(ngModel)]="car.brand" #brand="ngModel" required>
+    <div [hidden]="brand.valid || brand.pristine" class="alert alert-danger p-2 mt-3">Brand is required</div>
+  </div>
+  <div class="form-group">
+    <label for="model">Model:</label>
+    <input type="text" class="form-control" placeholder="Fiesta" name="model" id="model" [(ngModel)]="car.model" #model="ngModel" required>
+    <div [hidden]="model.valid || model.pristine" class="alert alert-danger p-2 mt-3">Model is required</div>
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" class="form-control" placeholder="Type short description..." id="description" name="description" [(ngModel)]="car.description">
+  </div>
+  <div class="form-group">
+    <label for="registration_number">Registration Number:</label>
+    <input type="text" class="form-control" placeholder="AA 0000 XX" id="registration_number" name="registration_number" [(ngModel)]="car.registration_number" #reg="ngModel" required>
+    <div [hidden]="reg.valid || reg.pristine" class="alert alert-danger p-2 mt-3">Registration Number is required</div>
+  </div>
+  <div class="form-group">
+    <label for="fuelType">Fuel Type:</label>
+    <select class="form-control" id="fuelType" name="fuelType" [(ngModel)]="car.fuelType" #fuel="ngModel" required>
+      <option *ngFor="let fuel of fuels" [value]="fuel">{{fuel}}</option>
+    </select>
+    <div [hidden]="fuel.valid || fuel.pristine" class="alert alert-danger p-2 mt-3">Fuel Type is required</div>
+  </div>
+  <div class="form-group">
+    <label for="transmission">Transmission:</label>
+    <select class="form-control" id="transmission" name="transmission" [(ngModel)]="car.transmission" #trans="ngModel" required>
+      <option *ngFor="let transmission of transmissions" [value]="transmission">{{transmission}}</option>
+    </select>
+    <div [hidden]="trans.valid || trans.pristine" class="alert alert-danger p-2 mt-3">Transmission Type is required</div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" [disabled]="!carForm.form.valid">Save</button>
+  </div>
+</form>

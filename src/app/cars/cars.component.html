@@ -1,0 +1,65 @@
+<div class="clearfix mb-3">
+  <a href="#" class="btn btn-success float-right" routerLink="/car">Add Car</a>
+</div>
+<table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+    <tr>
+      <th style="width: 8%">
+        <mfDefaultSorter by="brand">Brand</mfDefaultSorter>
+      </th>
+      <th style="width: 10%">
+        <mfDefaultSorter by="model">Model</mfDefaultSorter>
+      </th>
+      <th style="width: 30%">
+        <mfDefaultSorter by="description">Description</mfDefaultSorter>
+      </th>
+      <th style="width: 10%">
+        <mfDefaultSorter by="registration_number">Registration Number</mfDefaultSorter>
+      </th>
+      <th style="width: 8%">
+        <mfDefaultSorter by="fuelType">Fuel Type</mfDefaultSorter>
+      </th>
+      <th style="width: 14%">
+        <mfDefaultSorter by="transmission">Transmission</mfDefaultSorter>
+      </th>
+      <th style="width: 20%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mf.data">
+      <td>{{item.brand}}</td>
+      <td>{{item.model}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.registration_number}}</td>
+      <td>{{item.fuelType}}</td>
+      <td>{{item.transmission}}</td>
+      <td class="text-right">
+        <a href="#" class="btn btn-sm btn-primary" routerLink="/car/{{item.id}}">Edit</a>
+        <a href="#" class="btn btn-sm btn-danger" (click)="open($event, item.id, content)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="7">
+        <mfBootstrapPaginator [rowsOnPageSet]="[10,25,50]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete Car</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this record?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('close')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="c('delete')">Delete</button>
+  </div>
+</template>
